@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,17 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 	@Override
 	public int size() {
 		return stars.size();
+	}
+
+	@Override
+	protected boolean onTap(int index) {
+		OverlayItem item = stars.get(index);
+		// start chat
+		Intent i = new Intent(context, ChatActivity.class);
+		i.putExtra(ChatActivity.EXTRA_ID, item.getTitle());
+		i.putExtra(ChatActivity.EXTRA_ATTRIBUTES, item.getSnippet());
+		context.startActivity(i);
+		return true;
 	}
 
 	// run this in UI thread
