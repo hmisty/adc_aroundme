@@ -107,6 +107,20 @@ public class ChatActivity extends Activity {
 	}
 
 	public void send(View v) {
+		String content = msg.getText().toString();
 		
+		String msg = "m " + AroundMeActivity.myId + " " + toId + " " + content;
+		Intent i = new Intent(ChatAgent.SEND_ACTION);
+		i.putExtra(ChatAgent.EXTRA_MESSAGE, msg);
+		ChatActivity.this.sendBroadcast(i);
+		
+		chats.setText(chats.getText().toString() + AroundMeActivity.myNickname + ": " + content + "\n");
+		scroller.post(new Runnable() { 
+            public void run() { 
+                scroller.smoothScrollTo(0, chats.getBottom());
+            } 
+        });		
+
+		this.msg.setText(""); //clear
 	}
 }
