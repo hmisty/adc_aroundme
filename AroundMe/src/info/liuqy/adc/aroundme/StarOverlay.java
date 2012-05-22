@@ -53,6 +53,7 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 		Intent i = new Intent(context, ChatActivity.class);
 		i.putExtra(ChatActivity.EXTRA_ID, item.getTitle());
 		i.putExtra(ChatActivity.EXTRA_ATTRIBUTES, item.getSnippet());
+		i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //bring it up or create it
 		context.startActivity(i);
 		return true;
 	}
