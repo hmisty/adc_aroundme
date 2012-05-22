@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,17 +67,6 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 		String query = "view/by_loc?startkey=[" + long1d + "," + lat1d
 				+ "]&endkey=[" + long2d + "," + lat2d + "]";
 		couchdb.doGet(extraPath, query);
-	}
-	
-	@Override
-	protected boolean onTap(int index) {
-		OverlayItem item = stars.get(index);
-		// start chat
-		Intent i = new Intent(context, ChatActivity.class);
-		i.putExtra(ChatActivity.EXTRA_ID, item.getTitle());
-		i.putExtra(ChatActivity.EXTRA_ATTRIBUTES, item.getSnippet());
-		context.startActivity(i);
-		return true;
 	}
 
 	private Handler handler = new Handler() {
