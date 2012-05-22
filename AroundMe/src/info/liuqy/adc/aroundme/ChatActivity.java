@@ -2,6 +2,7 @@ package info.liuqy.adc.aroundme;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 public class ChatActivity extends Activity {
 
@@ -11,4 +12,8 @@ public class ChatActivity extends Activity {
 		setContentView(R.layout.chat);
 	}
 
+
+	public void send(View v) {
+		
+	}
 }
