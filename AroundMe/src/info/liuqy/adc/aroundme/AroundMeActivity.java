@@ -17,6 +17,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 
 public class AroundMeActivity extends MapActivity {
+	public static String myId, myNickname;
 
     MapView mapView;
     MapController mapCtrl;

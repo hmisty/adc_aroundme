@@ -5,10 +5,12 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -86,9 +88,15 @@ public class StarMeActivity extends Activity {
 				try {
 					JSONObject json = new JSONObject(jsonText);
 					String id = json.getString("id");
-					
-					//TODO
-					
+					AroundMeActivity.myId = id;
+					AroundMeActivity.myNickname = nickname;
+				    
+					// claim my id to the chat server
+					Intent in = new Intent(ChatAgent.SEND_ACTION);
+					in.putExtra(ChatAgent.EXTRA_MESSAGE, "id " + AroundMeActivity.myId);
+					sendBroadcast(in);
+				    
+					Log.d("XXX", "set myId to " + AroundMeActivity.myId + " and nickname to " + AroundMeActivity.myNickname);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
