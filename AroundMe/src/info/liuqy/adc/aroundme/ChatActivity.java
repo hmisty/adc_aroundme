@@ -65,7 +65,12 @@ public class ChatActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		// handle the incoming intent
+	    // claim my id to the chat server (case 2)
+		Intent in = new Intent(ChatAgent.SEND_ACTION);
+		in.putExtra(ChatAgent.EXTRA_MESSAGE, "id " + AroundMeActivity.myId);
+		sendBroadcast(in);
+	    
+		// handle the incoming intent (case 1)
 		Intent i = getIntent();
 		Bundle data = i.getExtras();
 		toId = data.getString(EXTRA_ID);
