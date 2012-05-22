@@ -2,7 +2,9 @@ package info.liuqy.adc.aroundme;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -96,7 +98,22 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 		}
 
 		private void showMarkers(String jsonText) throws JSONException {
-			
+			JSONObject json = new JSONObject(jsonText);
+			JSONArray rows = json.getJSONArray("rows");
+			for (int i = 0; i < rows.length(); i++) {
+				JSONObject star = rows.getJSONObject(i).getJSONObject("value");
+				String id = star.getString("_id");
+				String name = star.getString("name");
+				long until = star.getLong("until");
+				double long0 = star.getDouble("long");
+				double lat0 = star.getDouble("lat");
+				GeoPoint p0 = new GeoPoint((int) (lat0 * 1e6),
+						(int) (long0 * 1e6));
+				OverlayItem item = new OverlayItem(p0, id, name + "," + until);
+				stars.add(item);
+			}
+
+			StarOverlay.this.populate(); // draw the stars
 		}
 	};
 }
