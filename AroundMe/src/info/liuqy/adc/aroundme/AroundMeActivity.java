@@ -61,10 +61,12 @@ public class AroundMeActivity extends MapActivity {
         myLocationOverlay.enableMyLocation();
         myLocationOverlay.enableCompass();
         
+        starOverlay.renewCouchDbAdapter();
         myLocationOverlay.runOnFirstFix(new Runnable() {
             public void run() {
                 mapCtrl.animateTo(myLocationOverlay.getMyLocation());
                 mapCtrl.setZoom(15); //FIXME magic number
+                starOverlay.loadStarsAroundMe(mapView);
             }
         });
 	}
