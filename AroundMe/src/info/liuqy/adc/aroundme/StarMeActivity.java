@@ -60,6 +60,7 @@ public class StarMeActivity extends Activity {
 					e.printStackTrace();
 				}
 				
+				//TODO a better way to do
 				Toast.makeText(StarMeActivity.this, "result!" + page,
 						Toast.LENGTH_SHORT).show();
 				
