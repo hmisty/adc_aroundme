@@ -1,6 +1,7 @@
 package info.liuqy.adc.aroundme;
 
 import java.util.List;
+import java.util.UUID;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -32,6 +33,9 @@ public class AroundMeActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        myId = UUID.randomUUID().toString();
+        myNickname = "anonymous";
+        
         chatAgent = new ChatAgent(handler);
         new Thread(chatAgent).start();
         
