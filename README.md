@@ -12,7 +12,9 @@ Homework
 
 Requirements
 ---
-There are three requirements of the homework:
+There are four requirements of the homework:
+
+### Fix the calculation of time left
 
 ### Add the account, login and authentication
 
