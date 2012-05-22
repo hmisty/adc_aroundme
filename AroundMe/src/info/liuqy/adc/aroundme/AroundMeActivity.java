@@ -2,6 +2,7 @@ package info.liuqy.adc.aroundme;
 
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.maps.MapActivity;
@@ -16,6 +17,7 @@ public class AroundMeActivity extends MapActivity {
     MapController mapCtrl;
     List<Overlay> mapOverlays;
     MyLocationOverlay myLocationOverlay;
+    StarOverlay starOverlay;
     
     /** Called when the activity is first created. */
     @Override
@@ -27,9 +29,14 @@ public class AroundMeActivity extends MapActivity {
         mapView.setBuiltInZoomControls(true);
 
         mapOverlays = mapView.getOverlays();
+
+        Drawable defaultMarker = this.getResources().getDrawable(R.drawable.star);
+        starOverlay = new StarOverlay(this, defaultMarker);
+        mapOverlays.add(starOverlay);
+        
         myLocationOverlay = new MyMyLocationOverlay(this, mapView);
         mapOverlays.add(myLocationOverlay);
-        
+  
         mapCtrl = mapView.getController();
     }
 
