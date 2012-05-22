@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class StarMeActivity extends Activity {
@@ -34,7 +36,39 @@ public class StarMeActivity extends Activity {
 	}
 
 	public void starme(View v) {
-		//TODO
+		EditText nick = (EditText) this.findViewById(R.id.nickname);
+		Spinner stay = (Spinner) this.findViewById(R.id.stay);
+
+		nickname = nick.getText().toString();
+		int stayfor = stay.getSelectedItemPosition();
+		double lat0 = location.getLatitude();
+		double long0 = location.getLongitude();
+
+		long now = System.currentTimeMillis();
+		switch (stayfor) {
+		case 0: //30 min
+			until = now + 30 * 60 * 1000;
+			break;
+		case 1: //1 hour
+			until = now + 60 * 60 * 1000;
+			break;
+		case 2: //2 hour
+			until = now + 2 * 60 * 60 * 1000;
+			break;
+		case 3: //half a day
+			until = now + 4 * 60 * 60 * 1000;
+			break;
+		case 4: //1 day
+			until = now + 8 * 60 * 60 * 1000;
+			break;
+		default: //30 min
+			until = now + 30 * 60 * 1000;
+		}
+
+		String json = "{\"name\":\"" + nickname + "\", \"until\":" + until
+				+ ", \"long\":" + long0 + ", \"lat\":" + lat0 + "}";
+
+		couchdb.doPost(json);
 	}
 
 	private Handler handler = new Handler() {
