@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StarMeActivity" />
-
+        <activity android:name=".ChatActivity" />
+        
         <uses-library android:name="com.google.android.maps" />
     </application>
 
