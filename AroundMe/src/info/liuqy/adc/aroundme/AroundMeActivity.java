@@ -57,6 +57,13 @@ public class AroundMeActivity extends MapActivity {
     }
 
 	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		unregisterReceiver(chatAgent.sendAgent);
+	}
+    
+	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
