@@ -2,9 +2,15 @@ package info.liuqy.adc.aroundme;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -62,6 +68,35 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 	}
 
 	private Handler handler = new Handler() {
-		
+		@Override
+		public void handleMessage(Message msg) {
+			Bundle data;
+			switch (msg.what) {
+			case CouchDbAdapter.RESULT:
+				data = msg.getData();
+				String page = data.getString("result");
+				Log.d("XXX", "Loaded stars: " + page);
+				String jsonText = page.substring(4); // 200:{jsonText}
+				try {
+					showMarkers(jsonText);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Toast.makeText(context,
+							"Load star failed. Wrong json format: " + jsonText,
+							Toast.LENGTH_LONG).show();
+				}
+				break;
+			case CouchDbAdapter.START:
+				Log.d("XXX", "Loading stars...");
+				break;
+			default:
+				// TODO
+			}
+		}
+
+		private void showMarkers(String jsonText) throws JSONException {
+			
+		}
 	};
 }
