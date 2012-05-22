@@ -3,5 +3,13 @@
 
     <string name="hello">Hello World, AroundMeActivity!</string>
     <string name="app_name">AroundMe</string>
-
+    
+    <string-array name="stayfor">
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>2 hour</item>
+        <item>half a day</item>
+        <item>1 day</item>
+    </string-array>
+        
 </resources>
