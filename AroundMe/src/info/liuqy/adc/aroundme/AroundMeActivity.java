@@ -2,8 +2,13 @@ package info.liuqy.adc.aroundme;
 
 import java.util.List;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -18,13 +23,19 @@ public class AroundMeActivity extends MapActivity {
     List<Overlay> mapOverlays;
     MyLocationOverlay myLocationOverlay;
     StarOverlay starOverlay;
-    
+    ChatAgent chatAgent;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        chatAgent = new ChatAgent(handler);
+        new Thread(chatAgent).start();
         
+		registerReceiver(chatAgent.sendAgent, new IntentFilter(ChatAgent.SEND_ACTION));
+
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
 
@@ -70,4 +81,33 @@ public class AroundMeActivity extends MapActivity {
             }
         });
 	}
+	
+	//the incoming message handler
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			String text = msg.getData().getString(ChatAgent.EXTRA_MESSAGE);
+			
+			Log.d("XXX", "got msg from the chat server: " + text);
+
+			//the message should be: m FROM TO CONTENT
+			//or ok, error
+			String[] parts = text.split(" ", 4);
+			String cmd = parts[0];
+
+			if (cmd.equals("m")) {
+				String from = parts[1];
+//				String to = parts[2];
+				String content = parts[3];
+				
+				Intent i = new Intent(AroundMeActivity.this, ChatActivity.class);
+				i.putExtra(ChatActivity.EXTRA_ID, from);
+				i.putExtra(ChatActivity.EXTRA_MESSAGE, content);
+
+				i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); //bring it up or create it
+				AroundMeActivity.this.startActivity(i);
+			}
+		}
+	};
+
 }
