@@ -43,13 +43,6 @@ public class ChatActivity extends Activity {
 		
 		prefs = this.getSharedPreferences("chatlog", 0);
 	    editor = prefs.edit();	
-
-		// handle the incoming intent
-		Intent i = getIntent();
-		Bundle data = i.getExtras();
-		toId = data.getString(EXTRA_ID);
-		attributes = data.getString(EXTRA_ATTRIBUTES); //possible null
-		message = data.getString(EXTRA_MESSAGE); //possible null
 	}
 
 	//because of FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -71,7 +64,14 @@ public class ChatActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
+		// handle the incoming intent
+		Intent i = getIntent();
+		Bundle data = i.getExtras();
+		toId = data.getString(EXTRA_ID);
+		attributes = data.getString(EXTRA_ATTRIBUTES); //possible null
+		message = data.getString(EXTRA_MESSAGE); //possible null
+
 		String savedAttributes = prefs.getString(toId + PREF_ATTRIBUTES, null);
 		if (attributes != null && !attributes.equals(savedAttributes)) {
 			editor.putString(toId + PREF_ATTRIBUTES, attributes);
