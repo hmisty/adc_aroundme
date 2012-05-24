@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -72,7 +73,7 @@ public class AroundMeActivity extends MapActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+		mapChangeCheckerHandler.removeCallbacks(mapChangeChecker);
         myLocationOverlay.disableMyLocation();
         myLocationOverlay.disableCompass();
 	}
@@ -90,7 +91,8 @@ public class AroundMeActivity extends MapActivity {
                 mapCtrl.animateTo(myLocationOverlay.getMyLocation());
                 mapCtrl.setZoom(15); //FIXME magic number
                 starOverlay.loadStarsAroundMe(mapView);
-            }
+    	        mapChangeCheckerHandler.postDelayed(mapChangeChecker, mapChangeCheckingDelay);
+    	    }
         });
 	}
 	
@@ -122,4 +124,26 @@ public class AroundMeActivity extends MapActivity {
 		}
 	};
 
+	//the map position/zoom change monitor
+	private Handler mapChangeCheckerHandler = new Handler();
+	public static final int mapChangeCheckingDelay = 3000; // in ms
+	GeoPoint lastMapCenter = null;
+
+	private Runnable mapChangeChecker = new Runnable()
+	{		
+	    public void run()
+	    {
+	    	GeoPoint newMapCenter = mapView.getMapCenter();
+	    	if (lastMapCenter == null)
+	    		lastMapCenter = newMapCenter;
+	    	else if (!newMapCenter.equals(lastMapCenter)){
+	    		lastMapCenter = newMapCenter;
+		    	starOverlay.renewCouchDbAdapter();
+		    	starOverlay.loadStarsAroundMe(mapView);	    		
+	    	}
+	    	
+	        mapChangeCheckerHandler.removeCallbacks(mapChangeChecker); // remove the old callback
+	        mapChangeCheckerHandler.postDelayed(mapChangeChecker, mapChangeCheckingDelay); // register a new one
+	    }
+	};
 }
