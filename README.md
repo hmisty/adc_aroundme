@@ -7,6 +7,16 @@ ADC Around Me
 ADC Around Me is the 9th homework of the ADC.
 The source code here is a partially finished Android application. The goal for the students is to complete the application as required.
 
+The Source Codes
+---
+AroundMe/ : the android client
+chat_server/ : the chat server. how to run:
+  1. install erlang
+  1. $ erl
+  1. > c(chat_server1).
+  1. > chat_server1:start(4000).
+couchdb view: _design/stars { "views": { "by_loc": { "map": "function(doc){if(doc.type==\"star\") emit([doc.long,doc.lat],doc)}" } } } 
+
 Homework
 ===
 
