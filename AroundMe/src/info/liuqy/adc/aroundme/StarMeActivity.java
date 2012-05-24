@@ -67,8 +67,9 @@ public class StarMeActivity extends Activity {
 			until = now + 30 * 60 * 1000;
 		}
 
-		String json = "{\"name\":\"" + nickname + "\", \"until\":" + until
-				+ ", \"long\":" + long0 + ", \"lat\":" + lat0 + "}";
+		String json = "{\"type\":\"star\",\"name\":\"" + nickname
+				+ "\",\"until\":" + until + ",\"long\":" + long0 + ",\"lat\":"
+				+ lat0 + "}";
 
 		couchdb.doPost(json);
 	}

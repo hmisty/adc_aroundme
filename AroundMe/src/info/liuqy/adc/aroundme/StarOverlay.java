@@ -77,7 +77,7 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 		double long2d = (double) long2 / 1e6;
 
 		String extraPath = "/_design/stars/_view/by_loc";
-		String query = "view/by_loc?startkey=[" + long1d + "," + lat1d
+		String query = "startkey=[" + long1d + "," + lat1d
 				+ "]&endkey=[" + long2d + "," + lat2d + "]";
 		couchdb.doGet(extraPath, query);
 	}
