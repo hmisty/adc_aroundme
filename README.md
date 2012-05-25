@@ -27,6 +27,13 @@ There are four requirements of the homework:
 ### Fix the calculation of time left
 
 ### Add the account, login and authentication
+Tips to implement the authentication:
+  1. Add LoginActivity and make it the main activity
+  1. Add a new doc type in couchdb called the user doc like this: {"_id":USER_ID, "type":"user", "password":SHA1(USER_PASSWORD), ...}
+  1. REGISTRATION: POST the user doc to couchdb
+  1. LOGIN: get the user doc, and compare the SHA1(password)
+  1. Use USER_ID instead of UUID or the star doc _id when communicate with the chat server
+  1. Ask the user to input the additional information like sex, mobile phone, etc when register for later use
 
 ### Implement the input of sex and mobile phone
 Also implement the phone call.
