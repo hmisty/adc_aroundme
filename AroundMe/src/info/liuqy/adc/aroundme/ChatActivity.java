@@ -95,7 +95,7 @@ public class ChatActivity extends Activity {
 			String until = parts[1];
 			long now = System.currentTimeMillis();
 			long diff = Long.parseLong(until) - now;
-			long diffMin = diff / 1000 / 60 / 60;
+			long diffMin = diff / 1000 / 60;
 			nicknameText.setText(nickname);
 			timeleftText.setText(diffMin + " min left");
 		}
