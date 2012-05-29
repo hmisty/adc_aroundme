@@ -21,7 +21,7 @@ public class ChatAgent implements Runnable {
 	public static final String SEND_ACTION = "chat_send";
 
 	//FIXME hard coded configurations
-	public static final String HOST = "liuqy.info";
+	public static final String HOST = "hmisty.com";
 	public static final int PORT = 4000;
 
 	Handler handler; //the incoming message handler
