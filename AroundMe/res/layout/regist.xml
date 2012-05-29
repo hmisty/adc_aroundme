@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="10dp">
+    <TextView android:id="@+id/regist_username_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="80dp"
+              android:text="用户名："
+              android:paddingTop="20dp"
+            />
+    <EditText android:id="@+id/regist_username_text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/regist_username_lable"
+              android:layout_alignBaseline="@id/regist_username_lable"
+            />
+    <TextView android:id="@+id/regist_password_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="60dp"
+              android:text="密码："
+              android:layout_below="@id/regist_username_lable"
+            />
+    <EditText android:id="@+id/regist_password_text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignLeft="@id/regist_username_text"
+              android:layout_alignBaseline="@id/regist_password_lable"
+            />
+    <TextView android:id="@+id/regist_spinner_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="60dp"
+              android:text="性别："
+              android:layout_below="@id/regist_password_lable"
+            />
+    <Spinner
+            android:id="@+id/regist_sex"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sex"
+            android:textSize="32sp"
+            android:layout_alignLeft="@id/regist_username_text"
+            android:layout_alignBaseline="@id/regist_spinner_lable"
+            />
+    <TextView android:id="@+id/regist_phone_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="60dp"
+              android:text="手机号："
+              android:layout_below="@id/regist_spinner_lable"
+            />
+    <EditText android:id="@+id/regist_phone_text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignLeft="@id/regist_username_text"
+              android:layout_alignBaseline="@id/regist_phone_lable"
+            />
+    <Button android:id="@+id/regist_btn"
+            android:text="注册"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/regist_phone_lable"
+            android:layout_alignRight="@id/regist_username_text"
+            android:onClick="OnRegist"
+            />
+</RelativeLayout>
