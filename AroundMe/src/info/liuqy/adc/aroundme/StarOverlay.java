@@ -90,6 +90,8 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 			case CouchDbAdapter.RESULT:
 				data = msg.getData();
 				String page = data.getString("result");
+                if(page == null)
+                    return;
 				Log.d("XXX", "Loaded stars: " + page);
 				String jsonText = page.substring(4); // 200:{jsonText}
 				try {

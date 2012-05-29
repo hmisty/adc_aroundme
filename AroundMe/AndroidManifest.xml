@@ -21,6 +21,7 @@
         <activity android:name=".StarMeActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".AroundMeActivity" />
+        <activity android:name=".RegistActivty"/>
 
         <uses-library android:name="com.google.android.maps" />
     </application>
