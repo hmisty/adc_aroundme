@@ -117,14 +117,16 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 			JSONArray rows = json.getJSONArray("rows");
 			for (int i = 0; i < rows.length(); i++) {
 				JSONObject star = rows.getJSONObject(i).getJSONObject("value");
-				String id = star.getString("_id");
+                //修改使用userid，增加phone
+				String id = star.getString("userid");
+                String phone = star.getString("phone");
 				String name = star.getString("name");
 				long until = star.getLong("until");
 				double long0 = star.getDouble("long");
 				double lat0 = star.getDouble("lat");
 				GeoPoint p0 = new GeoPoint((int) (lat0 * 1e6),
 						(int) (long0 * 1e6));
-				OverlayItem item = new OverlayItem(p0, id, name + "," + until);
+				OverlayItem item = new OverlayItem(p0, id, name + "," + until + "," + phone);
 				stars.add(item);
 			}
 
