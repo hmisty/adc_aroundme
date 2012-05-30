@@ -42,7 +42,7 @@ public class ChatActivity extends Activity {
 		msg = (EditText) this.findViewById(R.id.msg);
 		
 		prefs = this.getSharedPreferences("chatlog", 0);
-	    editor = prefs.edit();	
+	    editor = prefs.edit();
 	}
 
 	//because of FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -96,8 +96,15 @@ public class ChatActivity extends Activity {
 			long now = System.currentTimeMillis();
 			long diff = Long.parseLong(until) - now;
 			long diffMin = diff / 1000 / 60;
-			nicknameText.setText(nickname);
-			timeleftText.setText(diffMin + " min left");
+            nicknameText.setText(nickname);
+            // 修改剩余时间显示方式
+            if (diffMin < 60){
+                timeleftText.setText(diffMin + " min left");
+            }else{
+                long diffHour = diffMin / 60;
+                timeleftText.setText(diffHour + " hour left");
+            }
+
 		}
 
 		String chatlog = prefs.getString(toId + PREF_CHATLOG, "");
