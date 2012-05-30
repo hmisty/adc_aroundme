@@ -3,11 +3,16 @@ package info.liuqy.adc.aroundme;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatActivity extends Activity {
 	public static final String EXTRA_ID = "id";
@@ -29,6 +34,7 @@ public class ChatActivity extends Activity {
 	String message;
 	SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    String phone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +99,12 @@ public class ChatActivity extends Activity {
 			String[] parts = attributes.split(",");
 			nickname = parts[0];
 			String until = parts[1];
+            // 增加电话号码
+            phone = parts[2];
+            if (phone!=null && phone.length()>0){
+                findViewById(R.id.call).setEnabled(true);
+            }
+
 			long now = System.currentTimeMillis();
 			long diff = Long.parseLong(until) - now;
 			long diffMin = diff / 1000 / 60;
@@ -135,4 +147,28 @@ public class ChatActivity extends Activity {
 
 		this.msg.setText(""); //clear
 	}
+
+    // the tricky pattern for identifying Chinese mobile numbers
+    static final Pattern MOBILE_PATTERN = Pattern.compile("(13|15|18)\\d{9}");
+
+    private boolean isMobile(String number) {
+        Matcher m = MOBILE_PATTERN.matcher(number);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
+
+    //拨打电话功能
+    public void call(View view) {
+        if (phone!=null && phone.length()>0){
+            if (isMobile(phone)) {
+                Intent intent = new Intent("android.intent.action.CALL",
+                        Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
+        } else {
+            Toast.makeText(ChatActivity.this, "对方未留电话号码", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
