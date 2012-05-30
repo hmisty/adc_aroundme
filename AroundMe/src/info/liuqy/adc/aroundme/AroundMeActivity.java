@@ -5,12 +5,14 @@ import java.util.UUID;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -19,7 +21,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 
 public class AroundMeActivity extends MapActivity {
-	public static String myId, myNickname;
+	public static String myId, myNickname, phone;
 
     MapView mapView;
     MapController mapCtrl;
@@ -34,9 +36,16 @@ public class AroundMeActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        myId = UUID.randomUUID().toString();
-        myNickname = "anonymous";
-        
+        // 读取登录、注册得到的myId和myNickname
+        Intent i = getIntent();
+        Bundle data = i.getExtras();
+        myId = data.getString("myId");
+        myNickname = data.getString("myNickname");
+
+        // 读取SharedPreferences中的手机号
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+        phone = settings.getString("phone", null);
+
         chatAgent = new ChatAgent(handler);
         new Thread(chatAgent).start();
         
@@ -101,7 +110,7 @@ public class AroundMeActivity extends MapActivity {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			String text = msg.getData().getString(ChatAgent.EXTRA_MESSAGE);
-			
+
 			Log.d("XXX", "got msg from the chat server: " + text);
 
 			//the message should be: m FROM TO CONTENT
