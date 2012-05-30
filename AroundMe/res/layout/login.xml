@@ -33,6 +33,7 @@
               android:layout_height="50dp"
               android:layout_alignLeft="@id/login_username_text"
               android:layout_alignBaseline="@id/login_password_lable"
+              android:password="true"
             />
     <Button android:id="@+id/login_btn"
             android:text="登录"
