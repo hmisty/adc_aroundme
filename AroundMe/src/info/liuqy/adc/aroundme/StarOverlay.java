@@ -119,7 +119,10 @@ public class StarOverlay extends ItemizedOverlay<OverlayItem> {
 				JSONObject star = rows.getJSONObject(i).getJSONObject("value");
                 //修改使用userid，增加phone
 				String id = star.getString("userid");
-                String phone = star.getString("phone");
+                String phone = "";
+                if(star.has("phone")){
+                    phone = star.getString("phone");
+                }
 				String name = star.getString("name");
 				long until = star.getLong("until");
 				double long0 = star.getDouble("long");
