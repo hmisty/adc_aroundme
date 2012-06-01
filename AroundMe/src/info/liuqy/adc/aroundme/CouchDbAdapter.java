@@ -26,9 +26,9 @@ public class CouchDbAdapter extends AsyncTask<String, Integer, String> {
 
 	// api key & secret for accessing cloudant
 	// FIXME a better way to keep the secret safer?
-	private static final String API_KEY = "forwithashoneracispeares";
-	private static final String API_SECRET = "yVdBbwqYppeEEloJUUKKFxKG";
-	private static final String host = "hmisty.cloudant.com";
+	private static final String API_KEY = "madowstrombeesirdtherent";
+	private static final String API_SECRET = "5dST3rHiFNc47jhGMAX40Ssf";
+	private static final String host = "dywang.cloudant.com";
 	private static final String db = "/aroundme_adc";
 
 	public CouchDbAdapter(Handler handler) {

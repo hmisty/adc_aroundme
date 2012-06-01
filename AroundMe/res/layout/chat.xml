@@ -32,13 +32,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/call"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.5"
-            android:enabled="false"
-            android:text="Call"
-            android:textSize="24sp" />
+                android:id="@+id/call"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:enabled="false"
+                android:text="Call"
+                android:textSize="24sp"
+                android:onClick="call" />
     </LinearLayout>
 
     <ScrollView

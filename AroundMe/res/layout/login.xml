@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+        android:padding="10dp" >
+    <ImageView android:id="@+id/login_icon"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_launcher"
+               android:layout_centerHorizontal="true"
+            />
+    <TextView android:id="@+id/login_username_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="70dp"
+              android:text="用户名："
+              android:layout_below="@id/login_icon"
+              android:paddingTop="20dp"
+              android:paddingRight="20dp"/>
+    <EditText android:id="@+id/login_username_text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/login_username_lable"
+              android:layout_alignBaseline="@id/login_username_lable"
+            />
+    <TextView android:id="@+id/login_password_lable"
+              android:layout_width="wrap_content"
+              android:layout_height="70dp"
+              android:text="密码："
+              android:layout_below="@id/login_username_lable" />
+    <EditText android:id="@+id/login_password_text"
+              android:layout_width="fill_parent"
+              android:layout_height="50dp"
+              android:layout_alignLeft="@id/login_username_text"
+              android:layout_alignBaseline="@id/login_password_lable"
+              android:password="true"
+            />
+    <Button android:id="@+id/login_btn"
+            android:text="登录"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password_lable"
+            android:layout_alignRight="@id/login_password_text"
+            android:onClick="OnLogin"
+            />
+    <Button android:id="@+id/regist_btn"
+            android:text="注册"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password_lable"
+            android:layout_toLeftOf="@id/login_btn"
+            android:onClick="OnRegist"
+            />
+</RelativeLayout>

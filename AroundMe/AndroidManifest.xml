@@ -11,7 +11,7 @@
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".AroundMeActivity" >
+            android:name=".LoginActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +20,15 @@
         </activity>
         <activity android:name=".StarMeActivity" />
         <activity android:name=".ChatActivity" />
-        
+        <activity android:name=".AroundMeActivity" />
+        <activity android:name=".RegistActivty"/>
+
         <uses-library android:name="com.google.android.maps" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

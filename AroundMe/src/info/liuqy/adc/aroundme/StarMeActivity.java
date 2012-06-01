@@ -35,6 +35,10 @@ public class StarMeActivity extends Activity {
 
 		Bundle data = this.getIntent().getExtras();
 		location = (Location) data.getParcelable(StarMeActivity.EXTRA_LOCATION);
+
+        // 增加用户昵称直接从主视图读取
+        EditText nick = (EditText) this.findViewById(R.id.nickname);
+        nick.setText(AroundMeActivity.myNickname);
 	}
 
 	public void starme(View v) {
@@ -67,11 +71,21 @@ public class StarMeActivity extends Activity {
 			until = now + 30 * 60 * 1000;
 		}
 
-		String json = "{\"type\":\"star\",\"name\":\"" + nickname
-				+ "\",\"until\":" + until + ",\"long\":" + long0 + ",\"lat\":"
-				+ lat0 + "}";
-
-		couchdb.doPost(json);
+        // 修改JSON对象创建方式，增加userid,phone
+        try {
+            JSONObject object = new JSONObject();
+            object.put("type", "star");
+            object.put("name", nickname);
+            object.put("until", until);
+            object.put("long", long0);
+            object.put("lat", lat0);
+            object.put("userid", AroundMeActivity.myId);
+            object.put("phone", AroundMeActivity.phone);
+            String json = object.toString();
+            couchdb.doPost(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 	}
 
 	private Handler handler = new Handler() {
@@ -81,32 +95,7 @@ public class StarMeActivity extends Activity {
 			switch (msg.what) {
 			case CouchDbAdapter.RESULT:
 				progressDialog.dismiss();
-				data = msg.getData();
-				String page = data.getString("result");
-				
-				String jsonText = page.substring(4); // 200:{jsonText}
-				//{"ok":true,"id":"e4fe0d7643f7969678868de459b3723b","rev":"1-a89de4cc9c0b5aed75c699ab77014431"}
-				try {
-					JSONObject json = new JSONObject(jsonText);
-					String id = json.getString("id");
-					AroundMeActivity.myId = id;
-					AroundMeActivity.myNickname = nickname;
-				    
-					// claim my id to the chat server
-					Intent in = new Intent(ChatAgent.SEND_ACTION);
-					in.putExtra(ChatAgent.EXTRA_MESSAGE, "id " + AroundMeActivity.myId);
-					sendBroadcast(in);
-				    
-					Log.d("XXX", "set myId to " + AroundMeActivity.myId + " and nickname to " + AroundMeActivity.myNickname);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				//TODO a better way to do
-				Toast.makeText(StarMeActivity.this, "result!" + page,
-						Toast.LENGTH_SHORT).show();
-				
+                // 直接结束视图，不再注册ID和昵称
 				finish();
 				break;
 			case CouchDbAdapter.START:
