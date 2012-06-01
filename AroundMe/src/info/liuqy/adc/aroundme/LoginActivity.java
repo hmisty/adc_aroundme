@@ -125,8 +125,8 @@ public class LoginActivity extends Activity {
                  return;
              }
 
-             String extraPath = "/_design/users/_view/by_name";
-             String query = "username=" + username;
+             String extraPath = "/_design/users/_view/by_id";
+             String query = "id=" + username;
              couchdb.doGet(extraPath, query);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

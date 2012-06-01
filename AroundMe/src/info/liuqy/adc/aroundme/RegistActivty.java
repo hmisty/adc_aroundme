@@ -109,7 +109,7 @@ public class RegistActivty extends Activity {
 
             JSONObject object = new JSONObject();
             object.put("type","user");
-            object.put("username", username);
+            object.put("_id", username);
             object.put("password", password);
             object.put("sex", sex);
             object.put("phone", phone);
